@@ -1,0 +1,42 @@
+//World.h 
+string webhook = "You Webhook Discord"
+
+//find Void (Random) Paste This
+void send_discord_webhook(const std::string& msg, const std::string& webhook) {
+  std::string curl_command = "curl -d \"content=" + msg + "\" -X POST https://discord.com/api/webhooks/" + webhook;
+  system(curl_command.c_str());
+}
+//Example
+else if (ServerCommand.substr(0,7)== "/clear " && pInfo(peer)->superdev) {
+ pInfo(peer)->confirm_reset = 0;
+ gamepacket_t p;
+ p.Insert("OnTextOverlay"), p.Insert("Cleared the world..."), p.CreatePacket(peer);
+ loggtzp(pInfo(peer)->tankIDName + " Clear World (" + pInfo(peer)->ip + ") - " + pInfo(peer)->world);
+send_discord_webhook(pInfo(peer)->tankIDName + "Cleared World " + pInfo(peer)->world, webhook);
+ {
+  world_->nuked = false;
+  world_->n_t = "";
+  world_->n_b = "";
+  world_->admins.clear();
+  world_->drop.clear();
+  world_->sbox1.clear();
+  world_->bulletin.clear();
+  world_->weather = 0;
+  world_->open_to_public = false, world_->disable_music_blocks = false, world_->make_music_blocks_invisible = false;
+  world_->bannedPlayers.clear();
+  world_->music_bpm = 100;
+  world_->entry_level = 1;
+  world_->active_jammers.clear();
+  world_->npc.clear();
+  world_->save_time = 0;
+  for (int i_ = 0; i_ < world_->blocks.size(); i_++) {
+   if (i_ <= 5400) {
+    if (world_->blocks[i_].fg != 0 and world_->blocks[i_].fg != 6 and world_->blocks[i_].fg != 8 and items[world_->blocks[i_].fg].blockType != BlockTypes::LOCK and items[world_->blocks[i_].fg].blockType != BlockTypes::SUCKER) world_->blocks[i_].fg = 0;
+    if (world_->blocks[i_].bg != 0) world_->blocks[i_].bg = 0;
+   }
+  }
+ }
+ for (ENetPeer* currentPeer = server->peers; currentPeer < &server->peers[server->peerCount]; ++currentPeer) {
+  if (currentPeer->state != ENET_PEER_STATE_CONNECTED or currentPeer->data == NULL or pInfo(currentPeer)->world != pInfo(peer)->world) continue;
+  exit_(currentPeer);
+ }
